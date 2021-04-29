@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/users")
     ResponseEntity<?> newUser(@RequestBody User newUser) {
 
-        //TODO: Add verification that user does not exist.
+
 
         EntityModel<User> entityModel = assembler.toModel(repository.save(newUser));
 
@@ -65,6 +65,4 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
-
-
 }
