@@ -23,5 +23,10 @@ class ExceptionAdvice {
         return ex.getMessage();
     }
 
-
+    @ResponseBody
+    @ExceptionHandler(CantDeleteUserException.class)
+    @ResponseStatus(HttpStatus.GONE)
+    String cantDeleteUserHandler(CantDeleteUserException ex) {
+        return ex.getMessage();
+    }
 }
