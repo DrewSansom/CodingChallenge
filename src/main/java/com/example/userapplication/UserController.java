@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,5 +45,26 @@ public class UserController {
 
         return assembler.toModel(user);
     }
+
+    @PostMapping("/users")
+    ResponseEntity<?> newUser(@RequestBody User newUser) {
+
+        //TODO: Add verification that user does not exist.
+
+        EntityModel<User> entityModel = assembler.toModel(repository.save(newUser));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
+    @DeleteMapping("/users/{id}")
+    ResponseEntity<?> deleteUser(@PathVariable Long id) {
+
+        repository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
