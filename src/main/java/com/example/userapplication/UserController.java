@@ -5,6 +5,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -49,7 +51,18 @@ public class UserController {
     @PostMapping("/users")
     ResponseEntity<?> newUser(@RequestBody User newUser) {
 
+        // Custom query to check that first and last name in the db don't exist
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id")
+                .withMatcher("firstName", ExampleMatcher.GenericPropertyMatchers.endsWith())
+                .withMatcher("lastName", ExampleMatcher.GenericPropertyMatchers.endsWith());
 
+        Example<User> example = Example.of(newUser, matcher);
+        boolean exists = repository.exists(example);
+
+        if (exists) {
+             throw new UserExistsException(newUser.getFirstName(), newUser.getLastName());
+        }
 
         EntityModel<User> entityModel = assembler.toModel(repository.save(newUser));
 

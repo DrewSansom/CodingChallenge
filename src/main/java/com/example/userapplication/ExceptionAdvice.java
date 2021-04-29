@@ -12,8 +12,16 @@ class ExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String userNotFoundHandler(UserNotFoundException es) {
-        return es.getMessage();
+    String userNotFoundHandler(UserNotFoundException ex) {
+        return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(UserExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    String userExistsHandler(UserExistsException ex) {
+        return ex.getMessage();
+    }
+
 
 }
