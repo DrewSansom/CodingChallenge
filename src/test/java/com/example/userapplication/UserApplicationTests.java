@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+/**
+ * Test for the controller methods in the UserApplication
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -23,8 +26,15 @@ class UserApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    // Used to wrap data for post requests in JSON form
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
+    /**
+     * Tests GET request for all users
+     * @throws Exception
+     */
     @Test
     @Order(1)
     public void getUserPageShouldReturnAllUsers() throws Exception {
@@ -33,6 +43,10 @@ class UserApplicationTests {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Tests GET reqeust for single user
+     * @throws Exception
+     */
     @Test
     @Order(2)
     public void getUserByIDShouldReturnUser() throws Exception {
@@ -41,6 +55,10 @@ class UserApplicationTests {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Tests GET request for invalid/nonexistant user
+     * @throws Exception
+     */
     @Test
     @Order(3)
     public void getInvalidUserByIDShouldReturnError() throws Exception {
@@ -49,6 +67,10 @@ class UserApplicationTests {
                 .andExpect(status().isNotFound());
     }
 
+    /**
+     * Tests POST request for creating new valied user
+     * @throws Exception
+     */
     @Test
     @Order(4)
     public void postValidUserShouldReturnSucess() throws Exception {
@@ -60,6 +82,10 @@ class UserApplicationTests {
                 .andExpect(status().isCreated());
     }
 
+    /**
+     * Tests POST request for user that already exists
+     * @throws Exception
+     */
     @Test
     @Order(5)
     public void postExistingUserShouldReturnError() throws Exception {
@@ -71,6 +97,10 @@ class UserApplicationTests {
                 .andExpect(status().isConflict());
     }
 
+    /**
+     * Tests deleting a user that exists
+     * @throws Exception
+     */
     @Test
     @Order(6)
     public void deleteValidUserShouldReturnValid() throws Exception {
@@ -80,6 +110,10 @@ class UserApplicationTests {
 
     }
 
+    /**
+     * Tests deleting a use that doesn't exist
+     * @throws Exception
+     */
     @Test
     @Order(7)
     public void deleteInvalidUserShouldReturnError() throws Exception {

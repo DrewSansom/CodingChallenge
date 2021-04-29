@@ -25,17 +25,6 @@ public class User {
     public User() {
     }
 
-    /**
-     * Constructor that accepts an ID if the user chooses to pass it in. ID can be generated automatically otherwise.
-     * @param id The db id of the user
-     * @param firstName The users first name, case sensitive
-     * @param lastName The users last name, case sensitive
-     */
-    public User(Long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     /**
      * Constructor for a user whose ID will be generated automatically.
