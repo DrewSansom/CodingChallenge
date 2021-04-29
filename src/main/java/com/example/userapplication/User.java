@@ -6,53 +6,102 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
+/**
+ * The user class that will be saved in the db through JPA
+ * This class provides getters and se
+ */
 @Entity
 public class User {
 
+    // Id is generated automatically if needed
     private @Id @GeneratedValue Long id;
     private String firstName;
     private String lastName;
 
+    /**
+     * Basic argument free constructor
+     */
     public User() {
     }
 
+    /**
+     * Constructor that accepts an ID if the user chooses to pass it in. ID can be generated automatically otherwise.
+     * @param id The db id of the user
+     * @param firstName The users first name, case sensitive
+     * @param lastName The users last name, case sensitive
+     */
     public User(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Constructor for a user whose ID will be generated automatically.
+     * @param firstName The users first name, case sensitive
+     * @param lastName The users last name, case sensitive
+     */
     public User(String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return ID
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id id to set
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param name first name to set
+     */
     public void setFirstName(String name) {
         this.firstName = name;
     }
 
+    /**
+     *
+     * @return last name
+     */
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String role) {
-        this.lastName = role;
+    /**
+     *
+     * @param name last name to set
+     */
+    public void setLastName(String name) {
+        this.lastName = name;
     }
 
 
+    /**
+     * Overrides object equals method to compare 2 User objects
+     * @param obj The object to compare to the calling object
+     * @return True if the objects are equal or if there values are equal, False otherwise
+     */
     @Override
     public boolean equals(Object obj) {
 
@@ -68,6 +117,10 @@ public class User {
                 && Objects.equals(this.lastName, user.lastName);
     }
 
+    /**
+     *
+     * @return String of all data in object
+     */
     @Override
     public String toString() {
         return "User{" +

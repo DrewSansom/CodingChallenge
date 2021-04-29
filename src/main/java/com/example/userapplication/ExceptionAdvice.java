@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Responsible for handling custom exceptions for the controller by 1) returning the correct HTTP messages and displaying
+ * the correct error messsages.
+ */
 @ControllerAdvice
 class ExceptionAdvice {
 
