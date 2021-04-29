@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -35,7 +36,8 @@ public class UserController {
 
     @GetMapping("/users")
     CollectionModel<EntityModel<User>> all() {
-        List<EntityModel<User>> users = repository.findAll().stream().map(assembler::toModel).collect(Collectors.toList());
+        List<EntityModel<User>> users = repository.findAll(Sort.by(Sort.Direction.ASC, "lastName"))
+                .stream().map(assembler::toModel).collect(Collectors.toList());
 
         return CollectionModel.of(users, linkTo(methodOn(UserController.class).all()).withSelfRel());
     }
